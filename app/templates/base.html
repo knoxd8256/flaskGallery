@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,9 +8,29 @@
     <link rel="stylesheet" href="{{url_for('static', filename='master.css')}}">
     <title>{{ title }}</title>
 </head>
+
 <body>
-    <nav></nav>
-{% block content %}
-{% endblock %}    
+    <nav id="nav">
+        <a href="{{url_for('index')}}">Home</a>
+        {% if current_user.is_anonymous %}
+        <a href="{{ url_for('login') }}">Login</a>
+        {% else %}
+        <a href="{{ url_for('user', username=current_user.username) }}">Profile</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+        {% endif %}
+        <a href="{{url_for('register')}}">Register</a>
+        <a href="{{url_for('addpost')}}">Post</a>
+    </nav>
+    {% block content %}
+    {% endblock %}
+    <button id='navBtn'>|||</button>
+    <script>
+        document.getElementById('navBtn').addEventListener('click', navToggle);
+
+        function navToggle() {
+            document.getElementById('nav').classList.toggle('on')
+        }
+    </script>
 </body>
+
 </html>

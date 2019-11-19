@@ -1,6 +1,8 @@
 <article class='post'>
-    <p>{{ post.title }}</p>
-    <p>{{ post.author.username }}</p>
-    <img src="/{{ post.imgLoc }}" alt={{post.title}}>
+    <figure>
+        <img src="/{{ post.imgLoc }}" alt={{post.title}}>
+        <figcaption>{{ post.title }}</figcaption>
+    </figure>
+    <p class="author">By {{ post.author.username }}</p>
     <p>{{ post.description }}</p>
 </article>

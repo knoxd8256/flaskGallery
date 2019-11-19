@@ -1,5 +1,110 @@
 html, body {
     margin: 0;
     padding: 0;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: #347;
 }
 
+nav {
+    display: flex;
+    width: 100%;
+    height: fit-content;
+    justify-items: center;
+}
+
+main {
+    background-color: #EFF;
+}
+
+main p {
+    padding: 1em;
+}
+
+form {
+    padding: 1em;
+}
+
+article {
+    display: grid;
+    justify-content: center;
+    align-content: flex-start;
+    padding: 2ch;
+    background-color: white;
+    border-radius: .5em;
+}
+
+.author {
+    font-style: italic;
+}
+
+figure {
+    padding: 0;
+    margin: 0;
+}
+
+nav a {
+    text-decoration: none;
+    background-color: #EFF;
+    line-height: 2em;
+    text-align: center;
+    flex: 1;
+    color: #458;
+}
+
+nav a:hover {
+    background-color: #AAF;
+}
+
+main.index {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1em;
+    padding: 1em;
+    background-color: transparent;
+}
+
+img {
+    max-width: 100%;
+}
+
+header {
+    padding: 1em;
+    background-color: lightblue;
+}
+
+#navBtn {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    height: 3em;
+    width: 3em;
+    padding: 0;
+    margin: 0;
+    display: none;
+}
+
+@media(max-width:800px) {
+    main.index {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media(max-width:500px) {
+    main.index {
+        grid-template-columns: 1fr;
+    }
+    nav {
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        flex-direction: column;
+        width: 50%;
+        display: none;
+    }
+    nav.on {
+        display: flex;
+    }
+    #navBtn {
+        display: block;
+    }
+}
