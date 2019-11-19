@@ -3,7 +3,6 @@
 {% block content %}
 <h1>User: {{ user.username }}</h1>
 <hr>
-{% if user.about_me %}<p><b>About me:</b> <br /> <br />{{ user.about_me }}</p>{% endif %}
 {% for post in posts %}
 {% include '_post.html' %}
 {% endfor %}

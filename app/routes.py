@@ -1,25 +1,17 @@
-from flask import render_template, flash, redirect, url_for, request
+from flask import render_template, flash, redirect, url_for, request, send_from_directory
 from app.forms import LoginForm, RegistrationForm, PostForm
 from flask_login import current_user, login_user, logout_user, login_required
 from app.models import User, Post
 from werkzeug.urls import url_parse
 from datetime import datetime
 from app import app, db
+import os
 
 
 @app.route('/')
 @app.route('/index')
 def index():
-    posts = [
-        {
-            'author': {'username': 'John'},
-            'body': 'Beautiful day in Portland!'
-        },
-        {
-            'author': {'username': 'Susan'},
-            'body': 'The Avengers movie was so cool!'
-        }
-    ]
+    posts = Post.query.all()
     return render_template('index.html', title='Home', posts=posts)
 
 
@@ -33,6 +25,7 @@ def login():
         if user is None or not user.check_password(form.password.data):
             flash('Invalid username or password')
             return redirect(url_for('login'))
+        login_user(user)
         next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc != '':
             return redirect(url_for('index'))
@@ -65,20 +58,29 @@ def logout():
 @login_required
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
-    posts = [
-        {'author': user, 'body': 'Test post #1'},
-        {'author': user, 'body': 'Test post #2'}
-    ]
+    posts = user.posts
     return render_template('user.html', user=user, posts=posts)
 
-@app.route('/addpost')
+@app.route('/addpost', methods=['POST', 'GET'])
 @login_required
 def addpost():
     user = current_user
     form = PostForm()
     if form.validate_on_submit():
-        post = Post()
+        if request.files['image']:
+            image = request.files['image']
+        else:
+            image = 'Not Found'
+        filename = image.filename
+        path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        image.save(path)
+        post = Post(title = form.title.data, imgLoc = 'uploads/' + filename, description = form.description.data, user_id = user.id)
         db.session.add(post)
         db.session.commit()
-        return redirect(url_for('/index'))
+        return redirect(url_for('index'))
     return render_template('addpost.html', title='Add an Image', form=form)
+
+
+@app.route('/uploads/<filename>')
+def uploaded_file(filename):
+    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
