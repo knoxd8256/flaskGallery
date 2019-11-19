@@ -1,9 +1,32 @@
+/* CSS Variable Declarations */
+html{
+--main-bg-color: #DDD;
+--post-bg-color: #FFF;
+--accent-color-1: #3B3;
+--accent-color-2: #123;
+--accent-color-3: #8E5;
+}
+/* resets and basic styles */
 html, body {
     margin: 0;
     padding: 0;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    background-color: #347;
+    background-color: var(--main-bg-color);
 }
+img {
+    max-width: 100%;
+}
+
+header {
+    padding: 1em;
+    background-color: var(--accent-color-1);
+}
+a {
+    color: var(--accent-color-1);
+}
+/* end of basics */
+
+/* Navigation Styling */
 
 nav {
     display: flex;
@@ -11,58 +34,94 @@ nav {
     height: fit-content;
     justify-items: center;
 }
+nav a {
+    text-decoration: none;
+    background-color: var(--accent-color-2);
+    line-height: 2em;
+    text-align: center;
+    flex: 1;
+    color: white;
+}
+
+nav a:hover {
+    background-color: var(--accent-color-3);
+    color: var(--accent-color-2);
+}
+#navBtn {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    height: 3em;
+    width: 3em;
+    padding: 0;
+    margin: 0;
+    display: none;
+}
+
+/* Nav Styling end */
+
+/* Default Main Styling */
 
 main {
-    background-color: #EFF;
+    background-color: var(--post-bg-color);
 }
 
 main p {
     padding: 1em;
 }
 
+/* Main Styling end*/
+
+/* Form Styling*/
 form {
     padding: 1em;
 }
 
-article {
+input[type='text'], input[type='password'] {
+    background-color: var(--post-bg-color);
+    border: 1px solid var(--accent-color-1);
+    line-height: 200%;
+    border-radius: .2em;
+}
+
+textarea {
+    background-color: var(--post-bg-color);
+    border: 1px solid var(--accent-color-1);
+}
+
+input[type='submit'] {
+    line-height: 250%;
+    background-color: var(--accent-color-1);
+    border: none;
+    color: white;
+    border-radius: .2em;
+    font-size: 120%;
+    cursor: pointer;
+}
+
+input[type='submit']:hover {
+    background-color: var(--accent-color-3);
+}
+
+input[type='file'] {
+    font-size: 110%;
+    border: none;
+    line-height: 250%;
+}
+/* Form Styling end*/
+
+/* Post Styling */
+article.post {
     display: grid;
     justify-content: center;
     align-content: flex-start;
     padding: 2ch;
-    background-color: #EFF;
+    background-color: var(--post-bg-color);
     border-radius: .5em;
 }
 
 .author {
     font-style: italic;
-}
-
-.modal {
-    position: fixed;
-    background-color: rgba(3, 3, 3, .6);
-    width: 100vw;
-    height: 100vh;
-    top: 0;
-    left: 0;
-    display: grid;
-}
-
-.modal button {
-    position: absolute;
-    top: 0;
-    right: 0;
-    background: black;
-    color: red;
-    border: none;
-    font-size: 300%;
-    font-family: 'Courier New', Courier, monospace;
-}
-
-.modal img {
-    max-height: 80%;
-    max-width: 80%;
-    justify-self: center;
-    align-self: center;
 }
 
 figure {
@@ -82,55 +141,59 @@ figure img {
     cursor: pointer;
 }
 
-nav a {
-    text-decoration: none;
-    background-color: #EFF;
-    line-height: 2em;
-    text-align: center;
-    flex: 1;
-    color: #458;
+/* Post end */
+
+/* Modal Styling */
+.modal {
+    position: fixed;
+    background-color: rgba(3, 3, 3, .6);
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    display: grid;
 }
 
-nav a:hover {
-    background-color: #AAF;
+.modal button {
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    background: var(--accent-color-2);
+    color: var(--accent-color-3);
+    border: none;
+    font-size: 300%;
+    font-family: 'Courier New', Courier, monospace;
+    border-radius: 10%;
 }
 
-main.index {
+.modal img {
+    max-height: 80%;
+    max-width: 80%;
+    justify-self: center;
+    align-self: center;
+}
+
+/* Modal end */
+
+/* Gallery Styling */
+main.gallery {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 1em;
     padding: 1em;
     background-color: transparent;
 }
+/* Gallery end */
 
-img {
-    max-width: 100%;
-}
-
-header {
-    padding: 1em;
-    background-color: lightblue;
-}
-
-#navBtn {
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    height: 3em;
-    width: 3em;
-    padding: 0;
-    margin: 0;
-    display: none;
-}
 
 @media(max-width:800px) {
-    main.index {
+    main.gallery {
         grid-template-columns: 1fr 1fr;
     }
 }
 
 @media(max-width:500px) {
-    main.index {
+    main.gallery {
         grid-template-columns: 1fr;
     }
     nav {

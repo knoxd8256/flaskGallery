@@ -23,6 +23,6 @@ class RegistrationForm(FlaskForm):
 
 class PostForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
-    description = TextAreaField('Description', validators=[DataRequired(), Length(min=1, max=140)])
+    description = TextAreaField('Description', validators=[DataRequired(), Length(min=1, max=140)], render_kw={"rows":'5', "cols":'30'})
     image = FileField('Image', validators=[FileRequired()])
     submit = SubmitField('Submit')
