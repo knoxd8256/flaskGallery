@@ -3,8 +3,8 @@
         <img id="img{{post.id}}" src="/uploads/{{ post.filename }}" alt="{{post.title}}">
         <figcaption>{{ post.title }}</figcaption>
     </figure>
-    <p class="author">By {{ post.author.username }}</p>
-    <p>{{ post.description }}</p>
+    <h3 class="author">By {{ post.author.username }}</h3>
+    <p><strong>Description: <br /></strong>{{ post.description }}</p>
     {% if mode %}
     <a href="/delete/{{ post.id }}">Delete</a>
     {% endif %}

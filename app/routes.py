@@ -59,7 +59,7 @@ def logout():
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
     posts = user.posts
-    return render_template('user.html', user=user, posts=posts, mode='user')
+    return render_template('user.html', user=user, posts=posts, mode='user', title='Profile')
 
 def randomString(number):
     hunk = string.ascii_letters

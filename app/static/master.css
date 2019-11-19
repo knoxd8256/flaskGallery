@@ -128,7 +128,7 @@ figure {
     display: grid;
     padding: 0;
     margin: 0;
-    max-width: 100%;
+    width: 100%;
     overflow-x: hidden;
     justify-items: left;
 }
@@ -186,13 +186,13 @@ main.gallery {
 /* Gallery end */
 
 
-@media(max-width:800px) {
+@media(max-width:1000px) {
     main.gallery {
         grid-template-columns: 1fr 1fr;
     }
 }
 
-@media(max-width:500px) {
+@media(max-width:650px) {
     main.gallery {
         grid-template-columns: 1fr;
     }
