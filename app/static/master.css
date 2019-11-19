@@ -29,7 +29,7 @@ article {
     justify-content: center;
     align-content: flex-start;
     padding: 2ch;
-    background-color: white;
+    background-color: #EFF;
     border-radius: .5em;
 }
 
@@ -37,9 +37,49 @@ article {
     font-style: italic;
 }
 
+.modal {
+    position: fixed;
+    background-color: rgba(3, 3, 3, .6);
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    display: grid;
+}
+
+.modal button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: black;
+    color: red;
+    border: none;
+    font-size: 300%;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.modal img {
+    max-height: 80%;
+    max-width: 80%;
+    justify-self: center;
+    align-self: center;
+}
+
 figure {
+    display: grid;
     padding: 0;
     margin: 0;
+    max-width: 100%;
+    overflow-x: hidden;
+    justify-items: left;
+}
+
+figure img {
+    justify-self: center;
+    align-self: center;
+    height: 20em;
+    max-width: unset;
+    cursor: pointer;
 }
 
 nav a {

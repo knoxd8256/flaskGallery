@@ -28,7 +28,7 @@ class User(UserMixin, db.Model):
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(64))
-    imgLoc = db.Column(db.String(256))
+    filename = db.Column(db.String(128))
     description = db.Column(db.String(140))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 

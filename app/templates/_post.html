@@ -1,8 +1,11 @@
-<article class='post'>
+<article class='post' id='post{{post.id}}'>
     <figure>
-        <img src="/{{ post.imgLoc }}" alt={{post.title}}>
+        <img id="img{{post.id}}" src="/uploads/{{ post.filename }}" alt="{{post.title}}">
         <figcaption>{{ post.title }}</figcaption>
     </figure>
     <p class="author">By {{ post.author.username }}</p>
     <p>{{ post.description }}</p>
+    {% if mode %}
+    <a href="/delete/{{ post.id }}">Delete</a>
+    {% endif %}
 </article>

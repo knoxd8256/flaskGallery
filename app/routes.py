@@ -5,7 +5,7 @@ from app.models import User, Post
 from werkzeug.urls import url_parse
 from datetime import datetime
 from app import app, db
-import os
+import os, string, random
 
 
 @app.route('/')
@@ -59,8 +59,14 @@ def logout():
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
     posts = user.posts
-    return render_template('user.html', user=user, posts=posts)
+    return render_template('user.html', user=user, posts=posts, mode='user')
 
+def randomString(number):
+    hunk = string.ascii_letters
+    res = ''
+    for i in range(number):
+        res += random.choice(hunk)
+    return res
 @app.route('/addpost', methods=['POST', 'GET'])
 @login_required
 def addpost():
@@ -71,10 +77,13 @@ def addpost():
             image = request.files['image']
         else:
             image = 'Not Found'
-        filename = image.filename
+        filename = randomString(15)
         path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        if os.path.exists(path):
+            filename += randomString(2)
+            path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         image.save(path)
-        post = Post(title = form.title.data, imgLoc = 'uploads/' + filename, description = form.description.data, user_id = user.id)
+        post = Post(title = form.title.data, filename = filename, description = form.description.data, user_id = user.id)
         db.session.add(post)
         db.session.commit()
         return redirect(url_for('index'))
@@ -84,3 +93,13 @@ def addpost():
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
+
+@app.route('/delete/<post_id>')
+def delete(post_id):
+    if post_id:
+        post = Post.query.get(post_id)
+        if current_user.id == post.user_id:
+            os.remove(os.path.join(app.config['UPLOAD_FOLDER'], post.filename))
+            db.session.delete(post)
+            db.session.commit()
+    return redirect(url_for('index'))
