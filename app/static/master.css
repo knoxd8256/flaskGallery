@@ -7,7 +7,12 @@ html {
     --accent-color-3: #8e5;
 }
 
-/* resets and basic styles */
+/* Basic Styles */
+
+a {
+    color: var(--accent-color-1);
+}
+
 html,
 body {
     margin: 0;
@@ -16,22 +21,22 @@ body {
     background-color: var(--main-bg-color);
 }
 
-img {
-    max-width: 100%;
-}
-
 header {
     padding: 1em;
     background-color: var(--accent-color-1);
 }
 
-a {
-    color: var(--accent-color-1);
+img {
+    max-width: 100%;
 }
 
-/* end of basics */
+.flash {
+    padding: .5em;
+    background-color: #fff;
+    border: 1px solid var(--accent-color-1);
+}
 
-/* Navigation Styling */
+/* Navigation Styles */
 
 nav {
     display: flex;
@@ -65,9 +70,8 @@ nav a:hover {
     display: none;
 }
 
-/* Nav Styling end */
 
-/* Default Main Styling */
+/* Main Styles */
 
 main {
     background-color: var(--post-bg-color);
@@ -77,16 +81,17 @@ main p {
     padding: 1em;
 }
 
-.flash {
-    padding: .5em;
-    background-color: #fff;
-    border: 1px solid var(--accent-color-1);
-}
-/* Main Styling end*/
 
-/* Form Styling*/
+/* Form Styles */
+
 form {
     padding: 1em;
+}
+
+input[type='file'] {
+    font-size: 110%;
+    border: none;
+    line-height: 250%;
 }
 
 input[type='text'],
@@ -95,11 +100,6 @@ input[type='password'] {
     border: 1px solid var(--accent-color-1);
     line-height: 200%;
     border-radius: .2em;
-}
-
-textarea {
-    background-color: var(--post-bg-color);
-    border: 1px solid var(--accent-color-1);
 }
 
 input[type='submit'] {
@@ -116,15 +116,13 @@ input[type='submit']:hover {
     background-color: var(--accent-color-3);
 }
 
-input[type='file'] {
-    font-size: 110%;
-    border: none;
-    line-height: 250%;
+textarea {
+    background-color: var(--post-bg-color);
+    border: 1px solid var(--accent-color-1);
 }
 
-/* Form Styling end*/
 
-/* Post Styling */
+/* Post Styles */
 article.post {
     display: grid;
     justify-content: center;
@@ -155,9 +153,8 @@ figure img {
     cursor: pointer;
 }
 
-/* Post end */
 
-/* Modal Styling */
+/* Modal Styles */
 .modal {
     position: fixed;
     background-color: rgba(3, 3, 3, .6);
@@ -187,9 +184,8 @@ figure img {
     align-self: center;
 }
 
-/* Modal end */
 
-/* Gallery Styling */
+/* Gallery Styles */
 main.gallery {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -198,9 +194,7 @@ main.gallery {
     background-color: transparent;
 }
 
-/* Gallery end */
-
-
+/* Mobile views */
 @media(max-width:1000px) {
     main.gallery {
         grid-template-columns: 1fr 1fr;
