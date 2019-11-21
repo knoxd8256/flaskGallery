@@ -151,22 +151,37 @@ def addpost():
     Returns:
         .html file: Rendered post submission form.
     """
+
+    # Import current user and form object.
     user = current_user
     form = PostForm()
+
+    # If the form is submitted and validates, save the image and post to the server and database, respectively.
     if form.validate_on_submit():
+
+        # If the image has been uploaded successfully, import it. Otherwise, set it to 'Not Found'.
+        # TODO: Image error handling
         if request.files['image']:
             image = request.files['image']
         else:
             image = 'Not Found'
+
+        # Set filename to unique string, and set path variable.
         filename = randomString(15)
         path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         if os.path.exists(path):
             filename += randomString(2)
             path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+
+        # Save the image to the specified path and filename.
         image.save(path)
+
+        # Create the post entry in the database.
         post = Post(title=form.title.data, filename=filename, description=form.description.data, user_id=user.id)
         db.session.add(post)
         db.session.commit()
+
+        # Return home.
         return redirect(url_for('index'))
     return render_template('addpost.html', title='Add an Image', form=form)
 

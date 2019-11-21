@@ -25,8 +25,10 @@
     {% endblock %}
     <button id='navBtn'>|||</button>
     <script>
+        // Add event listener to the navBtn Button
         document.getElementById('navBtn').addEventListener('click', navToggle);
 
+        // This function toggles the 'on' class of the nav element.
         function navToggle() {
             document.getElementById('nav').classList.toggle('on')
         }
