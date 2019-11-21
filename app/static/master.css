@@ -77,6 +77,11 @@ main p {
     padding: 1em;
 }
 
+.flash {
+    padding: .5em;
+    background-color: #fff;
+    border: 1px solid var(--accent-color-1);
+}
 /* Main Styling end*/
 
 /* Form Styling*/

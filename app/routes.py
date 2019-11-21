@@ -16,8 +16,6 @@ These routes and functions are as listed below:
     * randomString() - Random string generator
 """
 
-# TODO: Error Handling
-
 # Imports
 
 # Import generic python modules to interact with the system and manipulate variables
@@ -44,6 +42,7 @@ from flask import redirect
 from flask import url_for
 from flask import request
 from flask import send_from_directory
+from flask import flash
 
 # Import login handling functions
 from flask_login import current_user
@@ -80,6 +79,7 @@ def login():
 
     # If the user is logged in already, send them back home.
     if current_user.is_authenticated:
+        flash('You are already logged in!')
         return redirect(url_for('index'))
 
     # Import the form object
@@ -93,6 +93,7 @@ def login():
 
         # If the user does not exist, or their password does not match, send them back to this form.
         if user is None or not user.check_password(form.password.data):
+            flash('Invalid username or password. Try again!')
             return redirect(url_for('login'))
 
         # Otherwise, log them in.
@@ -118,6 +119,7 @@ def register():
 
     # If the user is already logged in, send them back home.
     if current_user.is_authenticated:
+        flash('You are already logged in!')
         return redirect(url_for('index'))
 
     # Import the form object
@@ -183,11 +185,12 @@ def addpost():
     # If the form is submitted and validates, save the image and post to the server and database, respectively.
     if form.validate_on_submit():
 
-        # If the image has been uploaded successfully, import it. Otherwise, set it to 'Not Found'.
+        # If the image has been uploaded successfully, import it. Otherwise, return them to the page with an error.
         if request.files['image']:
             image = request.files['image']
         else:
-            image = 'Not Found'
+            flash('Please upload a valid image file.')
+            return redirect(url_for('addpost'))
 
         # Set filename to unique string, and set path variable.
         filename = randomString(15)
@@ -205,6 +208,7 @@ def addpost():
         db.session.commit()
 
         # Return home.
+        flash('Posted!')
         return redirect(url_for('index'))
     return render_template('addpost.html', title='Add an Image', form=form)
 
@@ -244,6 +248,7 @@ def delete(post_id):
             # Remove the post entry from the database.
             db.session.delete(post)
             db.session.commit()
+    flash('Post removed!')
     return redirect(url_for('index'))
 
 

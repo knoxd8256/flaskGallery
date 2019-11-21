@@ -19,7 +19,7 @@
 
 // Main Code Block which is run upon loading of the script
 {
-    "use strict"
+    "use strict";
 
     // Importing posts and sending them to exPosts
     const posts = [...document.getElementsByClassName('post')];
@@ -39,7 +39,7 @@ function exPosts(posts) {
 
     // Mapping the posts into postObjer() function
     const images = posts.map(post => {
-        const image = post.children[0].children[0];
+        const image = post.getElementsByTagName('img')[0];
         // Creating the image object
         imgObj = {
 

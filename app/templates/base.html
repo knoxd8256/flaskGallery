@@ -23,6 +23,13 @@
         <a href="{{url_for('register')}}">Register</a>
         <a href="{{url_for('addpost')}}">Post</a>
     </nav>
+    {% with flashed = get_flashed_messages() %}
+    {% if flashed %}
+        {% for flash in flashed %}
+        <p class = 'flash'>{{flash}}</p>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
     {% block content %}
     {% endblock %}
 
