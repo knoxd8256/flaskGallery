@@ -29,21 +29,34 @@ from wtforms.validators import Length
 
 
 class LoginForm(FlaskForm):
-    """A login form with a username, password, and submit field."""
+    """A simple login form.
+
+    Attributes:
+        username (StringField): Username to log in as.
+        password (PasswordField): Password for username.
+        submit (SubmitField): Submit button.
+    """
     username = StringField('Username', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Sign In')
 
 
 class RegistrationForm(FlaskForm):
-    """A registration form with a username, password, repeat password, and submit field."""
+    """A user registration form.
+
+    Attributes:
+        username (StringField): Username to register user as.
+        password (PasswordField): Password to set to username.
+        password2 (PasswordField): Password verification, checks against password.
+        submit (SubmitField): Submit button.
+    """
     username = StringField('Username', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
     password2 = PasswordField('Repeat Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Register')
 
     def validate_username(self, username):
-        """Validates whether the username given is in use or not.
+        """Validates whether a username is registered already or not.
 
         Args:
             username (str): Username to be tested.
@@ -57,7 +70,14 @@ class RegistrationForm(FlaskForm):
 
 
 class PostForm(FlaskForm):
-    """A post submission for with title, description, image, and submit field."""
+    """A simple post submission form.
+
+    Attributes:
+        title (StringField): Title of post.
+        description (TextAreaField): Description/body of post.
+        image (FileField): Image to upload.
+        submit (SubmitField): Submit button.
+    """
     title = StringField('Title', validators=[DataRequired()])
     description = TextAreaField('Description', validators=[DataRequired(), Length(min=1, max=140)], render_kw={"rows": '5', "cols": '30'})
     image = FileField('Image', validators=[FileRequired()])

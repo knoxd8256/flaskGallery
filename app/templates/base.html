@@ -10,6 +10,8 @@
 </head>
 
 <body>
+    {% block header %}
+    {% endblock %}
     <nav id="nav">
         <a href="{{url_for('index')}}">Home</a>
         {% if current_user.is_anonymous %}
@@ -23,6 +25,8 @@
     </nav>
     {% block content %}
     {% endblock %}
+
+    <!-- Button for mobile navigation, and handler for click event. -->
     <button id='navBtn'>|||</button>
     <script>
         // Add event listener to the navBtn Button

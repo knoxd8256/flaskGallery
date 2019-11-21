@@ -16,6 +16,8 @@ These routes and functions are as listed below:
     * randomString() - Random string generator
 """
 
+# TODO: Error Handling
+
 # Imports
 
 # Import generic python modules to interact with the system and manipulate variables
@@ -36,12 +38,8 @@ from app.forms import PostForm
 from app.models import User
 from app.models import Post
 
-# Import date and time objects
-from datetime import datetime
-
 # Import flask methods and decorators for route definition and resolution
 from flask import render_template
-from flask import flash
 from flask import redirect
 from flask import url_for
 from flask import request
@@ -79,19 +77,34 @@ def login():
     Returns:
         .html file: Rendered page to login a user.
     """
+
+    # If the user is logged in already, send them back home.
     if current_user.is_authenticated:
         return redirect(url_for('index'))
+
+    # Import the form object
     form = LoginForm()
+
+    # When the form is submitted and validates, log the user in.
     if form.validate_on_submit():
+
+        # Retrieve the user entry by their username.
         user = User.query.filter_by(username=form.username.data).first()
+
+        # If the user does not exist, or their password does not match, send them back to this form.
         if user is None or not user.check_password(form.password.data):
-            flash('Invalid username or password')
             return redirect(url_for('login'))
+
+        # Otherwise, log them in.
         login_user(user)
+
+        # Once logged in, send them to whatever page they were trying to access, or the index page.
         next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc != '':
             return redirect(url_for('index'))
         return redirect(next_page)
+
+    # Before the form is submitted, display the form.
     return render_template('login.html', title='Sign In', form=form)
 
 # Registration Route
@@ -102,16 +115,27 @@ def register():
     Returns:
         .html file: Rendered page to register a user.
     """
+
+    # If the user is already logged in, send them back home.
     if current_user.is_authenticated:
         return redirect(url_for('index'))
+
+    # Import the form object
     form = RegistrationForm()
+
+    # When the form is submitted and validates, register the user.
     if form.validate_on_submit():
+
+        # Create the user entry in the database.
         user = User(username=form.username.data)
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
-        flash('Congratulations, you are now a registered user!')
+
+        # Return home.
         return redirect(url_for('login'))
+
+    # Before the form is submitted, show the form.
     return render_template('register.html', title='Register', form=form)
 
 # Logout Route
@@ -160,7 +184,6 @@ def addpost():
     if form.validate_on_submit():
 
         # If the image has been uploaded successfully, import it. Otherwise, set it to 'Not Found'.
-        # TODO: Image error handling
         if request.files['image']:
             image = request.files['image']
         else:
@@ -209,10 +232,16 @@ def delete(post_id):
     Returns:
         redirect: Redirection to the homepage.
     """
+
+    # If a post with the requested id exists and the current user owns that post, delete the file and the post.
     if post_id:
         post = Post.query.get(post_id)
         if current_user.id == post.user_id:
+
+            # Remove the file from the server.
             os.remove(os.path.join(app.config['UPLOAD_FOLDER'], post.filename))
+
+            # Remove the post entry from the database.
             db.session.delete(post)
             db.session.commit()
     return redirect(url_for('index'))

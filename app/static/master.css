@@ -1,18 +1,21 @@
 /* CSS Variable Declarations */
-html{
---main-bg-color: #DDD;
---post-bg-color: #FFF;
---accent-color-1: #3B3;
---accent-color-2: #123;
---accent-color-3: #8E5;
+html {
+    --main-bg-color: #ddd;
+    --post-bg-color: #fff;
+    --accent-color-1: #3b3;
+    --accent-color-2: #123;
+    --accent-color-3: #8e5;
 }
+
 /* resets and basic styles */
-html, body {
+html,
+body {
     margin: 0;
     padding: 0;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     background-color: var(--main-bg-color);
 }
+
 img {
     max-width: 100%;
 }
@@ -21,9 +24,11 @@ header {
     padding: 1em;
     background-color: var(--accent-color-1);
 }
+
 a {
     color: var(--accent-color-1);
 }
+
 /* end of basics */
 
 /* Navigation Styling */
@@ -34,19 +39,21 @@ nav {
     height: fit-content;
     justify-items: center;
 }
+
 nav a {
     text-decoration: none;
     background-color: var(--accent-color-2);
     line-height: 2em;
     text-align: center;
     flex: 1;
-    color: white;
+    color: #fff;
 }
 
 nav a:hover {
     background-color: var(--accent-color-3);
     color: var(--accent-color-2);
 }
+
 #navBtn {
     position: fixed;
     bottom: 0;
@@ -77,7 +84,8 @@ form {
     padding: 1em;
 }
 
-input[type='text'], input[type='password'] {
+input[type='text'],
+input[type='password'] {
     background-color: var(--post-bg-color);
     border: 1px solid var(--accent-color-1);
     line-height: 200%;
@@ -93,7 +101,7 @@ input[type='submit'] {
     line-height: 250%;
     background-color: var(--accent-color-1);
     border: none;
-    color: white;
+    color: #fff;
     border-radius: .2em;
     font-size: 120%;
     cursor: pointer;
@@ -108,6 +116,7 @@ input[type='file'] {
     border: none;
     line-height: 250%;
 }
+
 /* Form Styling end*/
 
 /* Post Styling */
@@ -183,6 +192,7 @@ main.gallery {
     padding: 1em;
     background-color: transparent;
 }
+
 /* Gallery end */
 
 
@@ -196,6 +206,7 @@ main.gallery {
     main.gallery {
         grid-template-columns: 1fr;
     }
+
     nav {
         position: fixed;
         bottom: 0;
@@ -204,9 +215,11 @@ main.gallery {
         width: 50%;
         display: none;
     }
+
     nav.on {
         display: flex;
     }
+
     #navBtn {
         display: block;
     }
